@@ -1,20 +1,56 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# HireWire
 
-# Run and deploy your AI Studio app
+🔗 **Live Demo:** [https://hirewire-xu1p.onrender.com/](https://hirewire-xu1p.onrender.com/)
 
-This contains everything you need to run your app locally.
+An AI-powered mock interview platform that simulates real technical and behavioral interviews with voice interaction, a live code editor, and instant feedback scorecards.
 
-View your app in AI Studio: https://ai.studio/apps/423c1f2a-197a-440a-8772-0ef1338e2008
+## Features
 
-## Run Locally
+- Real-time voice conversation with an AI interviewer
+- Integrated code editor (Monaco) with live test execution
+- STAR-framework guided behavioral interview practice
+- Instant scorecards evaluating code correctness, communication, and structure
+- Configurable timers and interview modes
 
-**Prerequisites:**  Node.js
+## Tech Stack
 
+- **Frontend:** React, TypeScript, Vite, Tailwind CSS
+- **Backend:** Node.js, Express
+- **AI:** Google Gemini API
+- **Database/Auth:** Firebase Firestore, Firebase Authentication
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Getting Started
+
+### Prerequisites
+
+- Node.js installed
+- A Gemini API key
+- A Firebase project set up
+
+### Installation
+
+\`\`\`bash
+git clone https://github.com/deepika-cs-learn/hirewire.git
+cd hirewire
+npm install
+\`\`\`
+
+### Environment Variables
+
+Create a `.env` file in the root directory:
+
+\`\`\`
+VITE_GEMINI_API_KEY=your_key_here
+\`\`\`
+
+### Running Locally
+
+\`\`\`bash
+npm run dev
+\`\`\`
+
+Visit `http://localhost:3000`
+
+## License
+
+This project is for educational/hackathon purposes.
