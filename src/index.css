@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer utilities {
+  /* Glowing Orb Pulsing Waves */
+  @keyframes orb-glow {
+    0%, 100% {
+      transform: scale(1);
+      filter: drop-shadow(0 0 25px rgba(59, 130, 246, 0.7));
+    }
+    50% {
+      transform: scale(1.06);
+      filter: drop-shadow(0 0 45px rgba(96, 165, 250, 0.9));
+    }
+  }
+
+  .animate-orb-glow {
+    animation: orb-glow 3s ease-in-out infinite;
+  }
+}

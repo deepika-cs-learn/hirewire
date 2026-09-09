@@ -1,0 +1,78 @@
+{
+  "entities": {
+    "InterviewSession": {
+      "title": "InterviewSession",
+      "description": "User completed or ongoing interview session including transcript, code, and Gemini evaluation",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Firebase Auth UID of candidate"
+        },
+        "userEmail": {
+          "type": "string",
+          "description": "Candidate email address"
+        },
+        "trackId": {
+          "type": "string",
+          "description": "Track identifier (e.g. frontend, dsa)"
+        },
+        "interviewId": {
+          "type": "string",
+          "description": "Specific interview exercise identifier"
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the interview session"
+        },
+        "category": {
+          "type": "string",
+          "description": "Category (Technical or Non-Technical)"
+        },
+        "persona": {
+          "type": "string",
+          "description": "AI Persona used (Maya, Alex, David)"
+        },
+        "inputMode": {
+          "type": "string",
+          "description": "Mode (voice or chat)"
+        },
+        "difficulty": {
+          "type": "string",
+          "description": "Difficulty level (Easy, Medium, Hard)"
+        },
+        "durationMinutes": {
+          "type": "number",
+          "description": "Scheduled duration in minutes"
+        },
+        "timeSpentSeconds": {
+          "type": "number",
+          "description": "Elapsed interview duration in seconds"
+        },
+        "code": {
+          "type": "string",
+          "description": "Submitted candidate source code"
+        },
+        "transcript": {
+          "type": "string",
+          "description": "Conversation transcript log"
+        },
+        "evaluation": {
+          "type": "object",
+          "description": "Structured JSON analytics and evaluation from Gemini"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp of creation"
+        }
+      },
+      "required": ["userId", "title", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/sessions/{sessionId}": {
+      "schema": "InterviewSession",
+      "description": "Interview session records and evaluation reports"
+    }
+  }
+}

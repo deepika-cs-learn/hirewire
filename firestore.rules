@@ -1,0 +1,60 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Default-deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Connection health check
+    match /test/connection {
+      allow read: if true;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidSession(data) {
+      return data.userId is string &&
+             data.userId == request.auth.uid &&
+             data.title is string && data.title.size() > 0 && data.title.size() <= 300 &&
+             (!('trackId' in data) || (data.trackId is string && data.trackId.size() <= 100)) &&
+             (!('interviewId' in data) || (data.interviewId is string && data.interviewId.size() <= 100)) &&
+             (!('category' in data) || (data.category is string && data.category.size() <= 100)) &&
+             (!('persona' in data) || (data.persona is string && data.persona.size() <= 100)) &&
+             (!('inputMode' in data) || (data.inputMode is string && data.inputMode.size() <= 50)) &&
+             (!('difficulty' in data) || (data.difficulty is string && data.difficulty.size() <= 50)) &&
+             (!('code' in data) || (data.code is string && data.code.size() <= 100000)) &&
+             (!('transcript' in data) || (data.transcript is string && data.transcript.size() <= 200000));
+    }
+
+    match /sessions/{sessionId} {
+      allow get: if isSignedIn() && isValidId(sessionId) && existing().userId == request.auth.uid;
+      allow list: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn() && isValidId(sessionId) && isValidSession(incoming());
+      allow update: if isSignedIn() && isValidId(sessionId) &&
+                    existing().userId == request.auth.uid &&
+                    incoming().userId == existing().userId &&
+                    isValidSession(incoming());
+      allow delete: if isSignedIn() && isValidId(sessionId) && existing().userId == request.auth.uid;
+    }
+  }
+}

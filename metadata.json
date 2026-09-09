@@ -1,0 +1,6 @@
+{
+  "name": "AI Interviewer",
+  "description": "AI Interviewer platform with live voice & coding workspace, personalized tracks, and evaluation analytics.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
